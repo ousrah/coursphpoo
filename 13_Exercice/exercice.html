@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cours Complet : Du PHP Historique à l'Architecture Laravel</title>
+        <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6RRKWY18MK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6RRKWY18MK');
+</script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+        .code-block {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.875rem;
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1.25rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            white-space: pre;
+        }
+        .code-block .token.keyword { color: #569cd6; }
+        .code-block .token.comment { color: #6a9955; }
+        .code-block .token.string { color: #ce9178; }
+        .code-block .token.function { color: #dcdcaa; }
+        .code-block .token.variable { color: #9cdcfe; }
+        .code-block .token.number { color: #b5cea8; }
+        .code-block .token.operator { color: #d4d4d4; }
+        .code-block .token.punctuation { color: #d4d4d4; }
+        .code-block .token.preprocessor, .code-block .token.tag { color: #569cd6; }
+        .code-block .token.attr-name { color: #9cdcfe; }
+        .code-block .token.attr-value { color: #ce9178; }
+        .php-toggle-label.active {
+            background-color: #007bff;
+            color: white;
+        }
+        .mvc-component.highlight {
+            transform: scale(1.05);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="antialiased" id="page-top">
+    <main class="max-w-5xl mx-auto p-4 sm:p-6 lg:p-8"><div id="exercice-chapitre-4" class="mt-16">
+    <h3 class="text-2xl font-semibold mb-3">Exercice d'Application : Synthèse des Concepts de la POO</h3>
+    <p class="text-gray-700 mb-8 bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
+        <strong>Objectif :</strong> Mettre en pratique l'ensemble des concepts avancés du chapitre 4 (Traits, Interfaces, Classes Abstraites, Héritage, Polymorphisme) en construisant un petit système de gestion de produits.
+    </p>
+
+    <div class="bg-white p-6 rounded-lg shadow-sm border space-y-8">
+        <div>
+            <h4 class="text-xl font-semibold text-gray-800 mb-2">Contexte du Scénario</h4>
+            <p class="text-gray-700">Vous devez modéliser un système de commande simple. Une commande peut contenir différents types de produits. Certains produits sont physiques (comme un livre) et ont un poids, d'autres sont numériques (comme un e-book) et ont une URL de téléchargement. Tous les produits et commandes doivent avoir une date de création. De plus, les commandes doivent pouvoir être exportées en format simplifié (CSV).</p>
+        </div>
+
+        <div>
+            <h4 class="text-lg font-semibold text-gray-900 mb-3">Instructions Détaillées</h4>
+            <ol class="list-decimal ml-6 space-y-6 text-gray-700">
+                <li>
+                    <strong>Le Trait `Timestampable` :</strong><br>
+                    Créez un trait nommé `Timestampable`. Il doit contenir une propriété `protected \DateTime $createdAt` et un constructeur qui initialise cette propriété à la date et heure actuelles (`new \DateTime()`). Ce trait servira à horodater nos objets.
+                </li>
+                <li>
+                    <strong>L'Interface `Exportable` :</strong><br>
+                    Créez une interface nommée `Exportable`. Elle doit définir un contrat avec une seule méthode publique : `exporterLigneCSV(): string`. Toute classe implémentant cette interface devra savoir comment se représenter sur une seule ligne au format CSV.
+                </li>
+                <li>
+                    <strong>La Classe Abstraite `Produit` :</strong><br>
+                    Créez une classe `abstract class Produit`.
+                    <ul>
+                        <li>Elle doit utiliser le trait `Timestampable`.</li>
+                        <li>Elle doit avoir des propriétés `protected` communes : `nom` et `prix`.</li>
+                        <li>Elle doit avoir un constructeur pour initialiser `nom` et `prix`.</li>
+                        <li>Elle doit déclarer une méthode `abstract public function getDetailsProduit(): string;` pour forcer les classes enfants à implémenter leur propre logique d'affichage de détails.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Les Classes Enfants (Héritage et Polymorphisme) :</strong><br>
+                    - Créez une classe `class ProduitPhysique extends Produit`. Ajoutez une propriété `poids_kg`. Implémentez la méthode `getDetailsProduit()` pour qu'elle retourne une chaîne incluant le nom, le prix et le poids.<br>
+                    - Créez une classe `class ProduitNumerique extends Produit`. Ajoutez une propriété `url_telechargement`. Implémentez la méthode `getDetailsProduit()` pour qu'elle retourne le nom, le prix et l'URL.
+                </li>
+                <li>
+                    <strong>La Classe `Commande` :</strong><br>
+                    Créez la classe `Commande`.
+                    <ul>
+                        <li>Elle doit utiliser le trait `Timestampable`.</li>
+                        <li>Elle doit implémenter l'interface `Exportable`.</li>
+                        <li>Elle doit avoir une propriété `numero` et un tableau `produits`.</li>
+                        <li>La méthode `ajouterProduit(Produit $produit)` permettra d'ajouter n'importe quel type de produit (physique ou numérique) à la commande.</li>
+                        <li>La méthode `exporterLigneCSV()` retournera une chaîne simple, par exemple : `"NumeroCommande;DateCreation;NombreProduits"`.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Mise en Pratique (`Test.php`) :</strong><br>
+                    Créez un fichier pour tester votre logique. Il devrait ressembler à ceci :
+                    <div class="code-block mt-4">
+<span class="token-preprocessor">&lt;?php</span>
+<span class="token-comment">// Inclure toutes vos classes ici...</span>
+
+<span class="token-comment">// 1. Créer différents types de produits</span>
+<span class="token-variable">$livre</span> <span class="token-operator">=</span> <span class="token-keyword">new</span> <span class="token-function">ProduitPhysique</span>(<span class="token-string">'Livre POO en PHP'</span>, <span class="token-number">25.50</span>, <span class="token-number">0.8</span>);
+<span class="token-variable">$ebook</span> <span class="token-operator">=</span> <span class="token-keyword">new</span> <span class="token-function">ProduitNumerique</span>(<span class="token-string">'PDF du cours'</span>, <span class="token-number">9.99</span>, <span class="token-string">'http://lien.telechargement/cours.pdf'</span>);
+
+<span class="token-comment">// 2. Créer une commande</span>
+<span class="token-variable">$commande</span> <span class="token-operator">=</span> <span class="token-keyword">new</span> <span class="token-function">Commande</span>(<span class="token-string">'CMD-2025-001'</span>);
+<span class="token-variable">$commande</span><span class="token-operator">-&gt;</span><span class="token-function">ajouterProduit</span>(<span class="token-variable">$livre</span>);
+<span class="token-variable">$commande</span><span class="token-operator">-&gt;</span><span class="token-function">ajouterProduit</span>(<span class="token-variable">$ebook</span>);
+
+<span class="token-comment">// 3. Démontrer le polymorphisme</span>
+<span class="token-keyword">echo</span> <span class="token-string">"Détails des produits dans la commande :\n"</span>;
+<span class="token-keyword">foreach</span> (<span class="token-variable">$commande</span><span class="token-operator">-&gt;</span>produits <span class="token-keyword">as</span> <span class="token-variable">$produit</span>) {
+    <span class="token-comment">// Appelle la bonne version de getDetailsProduit() selon l'objet</span>
+    <span class="token-keyword">echo</span> <span class="token-string">"- "</span> . <span class="token-variable">$produit</span><span class="token-operator">-&gt;</span><span class="token-function">getDetailsProduit</span>() . <span class="token-string">"\n"</span>;
+}
+
+<span class="token-comment">// 4. Démontrer l'interface</span>
+<span class="token-keyword">echo</span> <span class="token-string">"\nExport CSV de la commande :\n"</span>;
+<span class="token-keyword">echo</span> <span class="token-variable">$commande</span><span class="token-operator">-&gt;</span><span class="token-function">exporterLigneCSV</span>();
+                    </div>
+                </li>
+            </ol>
+        </div>
+    </div>
+</div>
+</main>
+</body>
+</html>
