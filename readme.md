@@ -91,3 +91,8 @@ Chaque dossier numéroté représente une étape d'apprentissage. À l'intérieu
 
 
 ### 15. Exercice Pratique
+
+
+
+Cours Réalisé par P. Oussama Rahmouni
+https://ousrah.portal-edu.com/php
