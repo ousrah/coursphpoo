@@ -1,12 +1,12 @@
 <?php
 
-require_once 'Person.php';
+require_once 'Personne.php';
 require_once 'Adressable.php';
 /**
  * La classe Client hérite de la classe Personne.
  * Elle a donc accès à toutes les propriétés et méthodes publiques de Personne.
  */
-class Client extends Person {
+class Client extends Personne {
 
        // On "injecte" les propriétés (rue, ville, codePostal) et la méthode getAdresseComplete()
 

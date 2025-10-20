@@ -1,6 +1,6 @@
 <?php
 
-abstract  class Person {
+abstract  class Personne {
     /**
      * Les propriétés sont maintenant 'private'. Elles ne peuvent être accédées
      * que depuis l'intérieur de la classe elle-même.
